@@ -60,7 +60,7 @@ module ImageManip
     }
   }
   
-  image = MiniMagick::Image.get_image_from_pixels(pixels, dimensions, map, depth, 'jpg') 
+  image = MiniMagick::Image.get_image_from_pixels(pixels, dimensions, map, depth, 'gif') 
 
   image.write(output_file)
   end #def self.image_manip

@@ -18,7 +18,7 @@ class StaffCreator
     edits[:bounding_box][:dx] = 2
     edits[:bounding_box][:dy] = 2
     edits[:bounding_box][:rgb_array] = Array.new.fill([[0, 0, 255], [0, 0, 255]], 0..2)
-    ImageManip::draw_2D_object(@image_path, './new_staff.jpg', edits)
+    ImageManip::draw_2D_object(@image_path, './new_staff.gif', edits)
   end #def main
 end #class staff_creator
 
