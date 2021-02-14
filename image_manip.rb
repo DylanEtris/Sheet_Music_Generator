@@ -17,6 +17,15 @@ module ImageManip
     puts "Image Size: #{image.human_size}"
   end #def inspect_image
 
+  # Function: get_pixels
+  # Inputs:   path to image file
+  # Outputs:  An array of pixels
+  # Purpose:  Reads an image and returns pixels
+  def self.get_pixels(img_file, log=nil, debug=nil)
+    image = MiniMagick::Image.open(img_file)
+    return image.get_pixels
+  end #def get_dimensions
+
   # Function: get_dimensions
   # Inputs:   path to image file
   # Outputs:  An array of image dimensions
@@ -48,14 +57,14 @@ module ImageManip
   depth = 8
   map = 'rgb'
 
-  dx = edit[:bounding_box][:dx]
-  dy = edit[:bounding_box][:dy]
+  dx = edit[:rgb_array].length
+  dy = edit[:rgb_array][0].length
   upper_left = edit[:upper_left]
   (0..dx-1).each{ |dx|
     (0..dy-1).each{ |dy|
       x = upper_left[0] + dx
       y = upper_left[0] + dy
-      rgb = edit[:bounding_box][:rgb_array][dx][dy]
+      rgb = edit[:rgb_array][dx][dy]
       pixels[x][y] = rgb unless rgb == nil
     }
   }
