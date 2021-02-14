@@ -2,18 +2,28 @@
 
 require 'rubygems'
 require 'bundler/setup'
-
-require 'mini_magick'
+require './image_manip.rb'
 
 class StaffCreator
-  def self.inspect_image(img_file, log=nil, debug=nil)
-    image = MiniMagick::Image.open(img_file)
-    puts "Image Dimensions: #{image.dimensions}"
-    puts "Image Type: #{image.type}"
-    puts "Image Size: #{image.human_size}"
-  end
+  def initialize(image_path)
+    @image_path = image_path
+  end #def initialize
+
+  def main
+    ImageManip::inspect_image(@image_path)
+    dimensions = ImageManip::get_dimensions(@image_path)
+    edits = Hash.new
+    edits[:upper_left] = [dimensions[0] / 2, 15]
+    edits[:bounding_box] = Hash.new
+    edits[:bounding_box][:dx] = 2
+    edits[:bounding_box][:dy] = 2
+    edits[:bounding_box][:rgb_array] = Array.new.fill([[0, 0, 255], [0, 0, 255]], 0..2)
+    ImageManip::draw_2D_object(@image_path, './new_staff.jpg', edits)
+  end #def main
 end #class staff_creator
 
 if __FILE__ == $0
-  StaffCreator.inspect_image('./Piano_Staff.PNG')
+  staff_creator = StaffCreator.new('./Piano_Staff.PNG')
+  staff_creator.main
+  
 end
