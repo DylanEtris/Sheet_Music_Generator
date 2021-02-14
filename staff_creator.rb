@@ -18,11 +18,11 @@ class StaffCreator
   #           image file
   def get_accidental_pixels(accidental_path, log=nil, debug=nil)
     pixels = ImageManip::get_pixels(accidental_path)
-    pixels.each{ |row|
-      row.each{ |col|
-        total_rgb = col[0] + col[1] + col[2]
+    pixels.each_index{ |y|
+      pixels[y].each_index{ |x|
+        total_rgb = pixels[y][x][0] + pixels[y][x][1] + pixels[y][x][2]
         if total_rgb < 382
-          pixels[row][col] = nil
+          pixels[y][x] = nil
         end
       }
     }
@@ -45,7 +45,7 @@ class StaffCreator
 end #class staff_creator
 
 if __FILE__ == $0
-  staff_creator = StaffCreator.new('./Piano_Staff.png', './Sharp.png', './Flat.png')
+  staff_creator = StaffCreator.new('./Piano_Staff.gif', './Sharp.gif', './Flat.gif')
   staff_creator.main
   
 end

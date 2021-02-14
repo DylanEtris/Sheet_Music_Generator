@@ -64,6 +64,8 @@ module ImageManip
     (0..dy-1).each{ |dy|
       x = upper_left[0] + dx
       y = upper_left[0] + dy
+      raise StandardError, 'pixel is not within image bounds' unless x >= 0 && x < dimensions[0]
+      raise StandardError, 'pixel is not within image bounds' unless y >= 0 && x < dimensions[1]
       rgb = edit[:rgb_array][dx][dy]
       pixels[x][y] = rgb unless rgb == nil
     }
