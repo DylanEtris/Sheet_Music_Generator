@@ -38,7 +38,7 @@ module ImageManip
   # Function: draw_2D_object
   # Inputs:   img_file - Path to input image
   #           output_file - Path to output image
-  #           image_edits - [{ coordinates: {dx: 2, dy: 2, upper_left: [0, 0]},
+  #           image_edits - [{ coordinates: {dx: 2, dy: 2, lower_left: [0, 0]},
   #                            rgb_array: [255, 255, 255] [0, 255, 255] Visual array;
   #                                       [0, 255, 255]   [0, 0, 0]     Not syntactically correct
   #                          },
@@ -59,11 +59,11 @@ module ImageManip
 
   dx = edit[:rgb_array].length
   dy = edit[:rgb_array][0].length
-  upper_left = edit[:upper_left]
+  lower_left = edit[:lower_left]
   (0..dx-1).each{ |dx|
     (0..dy-1).each{ |dy|
-      x = upper_left[0] + dx
-      y = upper_left[0] + dy
+      x = lower_left[0] + dx
+      y = lower_left[0] + dy
       raise StandardError, 'pixel is not within image bounds' unless x >= 0 && x < dimensions[0]
       raise StandardError, 'pixel is not within image bounds' unless y >= 0 && x < dimensions[1]
       rgb = edit[:rgb_array][dx][dy]
